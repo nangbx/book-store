@@ -7,7 +7,8 @@ import { successMessage } from "../../Slices/message";
 import { getProfile } from "../../Slices/auth";
 
 const phoneRegExp =
-	/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+	/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/;
+
 export default function UserInfo() {
 	const dispatch = useDispatch();
 	const [profile, setProfile] = useState({
@@ -46,7 +47,7 @@ export default function UserInfo() {
 			dispatch(getProfile());
 		},
 	});
-	const { values, handleSubmit, handleChange } = formik;
+	const { values, errors, handleSubmit, handleChange } = formik;
 	const formatDateTime = (date) => {
 		return date && new Date(date).toISOString().slice(0, 10);
 	};
@@ -98,12 +99,18 @@ export default function UserInfo() {
 										<div className='form-group flex-half'>
 											<label>Name:</label>
 											<input
-												className='form-control '
+												className={
+													errors.name
+														? `form-control invalid`
+														: `form-control valid`
+												}
 												type='text'
 												name='name'
 												value={values.name}
 												onChange={handleChange}
+												required
 											/>
+											<div className='invalid-feedback'>{errors.name}</div>
 										</div>
 										<div className='form-group flex-half'>
 											<label>Email:</label>
@@ -117,12 +124,17 @@ export default function UserInfo() {
 										<div className='form-group flex-half'>
 											<label>Phone:</label>
 											<input
-												className='form-control'
+												className={
+													errors.phone
+														? `form-control invalid`
+														: `form-control valid`
+												}
 												type='text'
 												name='phone'
 												value={values.phone}
 												onChange={handleChange}
 											/>
+											<div className='invalid-feedback'>{errors.phone}</div>
 										</div>
 										<div className='form-group flex-half'>
 											<label htmlFor='true'>Gender:</label>
@@ -139,16 +151,22 @@ export default function UserInfo() {
 												<option value='FEMALE'>Female</option>
 												<option value='OHTER'>Other</option>
 											</select>
+											<div className='invalid-feedback'>{errors.gender}</div>
 										</div>
 										<div className='form-group flex-full'>
 											<label>Date of birth:</label>
 											<input
-												className='form-control'
+												className={
+													errors.dob
+														? `form-control invalid`
+														: `form-control valid`
+												}
 												type='date'
 												name='dob'
 												value={formatDateTime(values.dob)}
 												onChange={handleChange}
 											/>
+											<div className='invalid-feedback'>{errors.dob}</div>
 										</div>
 									</div>
 									<button type='submit' onClick={handleSubmit}>
