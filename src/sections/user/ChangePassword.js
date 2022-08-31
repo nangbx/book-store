@@ -41,7 +41,7 @@ export default function ChangePassword() {
 		},
 	});
 
-	const { values, handleChange, handleSubmit } = formik;
+	const { values, errors, handleChange, handleSubmit } = formik;
 	return (
 		<div className='content__info'>
 			<div className='content__info__data'>
@@ -59,32 +59,53 @@ export default function ChangePassword() {
 										<div className='form-group flex-full'>
 											<label>Current Password:</label>
 											<input
-												className='form-control '
+												className={
+													errors.currentPassword
+														? `form-control invalid`
+														: `form-control valid`
+												}
 												type='password'
 												name='currentPassword'
 												value={values.currentPassword}
 												onChange={handleChange}
 											/>
+											<div className='invalid-feedback'>
+												{errors.currentPassword}
+											</div>
 										</div>
 										<div className='form-group flex-full'>
 											<label>New Password:</label>
 											<input
-												className='form-control '
+												className={
+													errors.newPassword
+														? `form-control invalid`
+														: `form-control valid`
+												}
 												type='password'
 												name='newPassword'
 												value={values.newPassword}
 												onChange={handleChange}
 											/>
+											<div className='invalid-feedback'>
+												{errors.newPassword}
+											</div>
 										</div>
 										<div className='form-group flex-full'>
 											<label>Confirm Password:</label>
 											<input
-												className='form-control '
+												className={
+													errors.confirmNewPassword
+														? `form-control invalid`
+														: `form-control valid`
+												}
 												type='password'
 												name='confirmNewPassword'
 												value={values.confirmNewPassword}
 												onChange={handleChange}
 											/>
+											<div className='invalid-feedback'>
+												{errors.confirmNewPassword}
+											</div>
 										</div>
 									</div>
 									<button type='submit' onClick={handleSubmit}>
