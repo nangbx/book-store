@@ -42,7 +42,7 @@ export default function Router() {
 						</PrivateUserRouter>
 					),
 				},
-				{ path: "/search", element: <SearchPage /> },
+				{ path: "/search/:author", element: <SearchPage /> },
 				{ path: "*", element: <Navigate to='/404' /> },
 			],
 		},

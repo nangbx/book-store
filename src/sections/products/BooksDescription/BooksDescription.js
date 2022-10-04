@@ -5,6 +5,7 @@ import { CartService } from "../../../Services";
 import { Link, useParams } from "react-router-dom";
 import { ProductService } from "../../../Services";
 import "./BooksDescription.style.scss";
+import AuthorTag from "../../../Components/AuthorTag/AuthorTag";
 
 export default function BooksDescription() {
 	let params = useParams();
@@ -120,7 +121,7 @@ export default function BooksDescription() {
 											Author:{" "}
 											{book.authors ? (
 												book.authors.map((item, index) => (
-													<span key={index}>{item.name}</span>
+													<AuthorTag key={index} name={item.name}></AuthorTag>
 												))
 											) : (
 												<span>Jhone Steben</span>

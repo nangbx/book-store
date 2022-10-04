@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import BookItem from "../../Components/BookItem/BookItem";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import "./SearchPage.style.scss";
 import { AdminService, ProductService } from "../../Services";
 
-export default function SearchPage() {
+export default function SearchPage(props) {
+	let params = useParams();
 	const [text, setText] = useState("");
 	const [genres, setGeners] = useState([]);
 	const [authors, setAuthors] = useState([]);
@@ -108,6 +109,7 @@ export default function SearchPage() {
 													className='form-control'
 													name='authors'
 													id='authors'
+													defaultValue={params.author ? params.author : author}
 													value={author}
 													onChange={(e) => setAuthor(e.target.value)}
 												>
